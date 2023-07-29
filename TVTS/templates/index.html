@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="coderell" content="width=device-width, initial-scale=1.0">
+    <title>textual video to speech</title>
+    <!-- CSS ========================= -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- ion-icon ========================= -->
+    <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+
+    <!--boxicon  -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- TweenMax GSAP  ========================= -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,800;0,900;1,900&display=swap');
+
+:root {
+  --clr-background:#00080a;
+  --clr-primary:#55c8ef;
+  --clr-secondary:#39b0d8;
+  --clr-grblack:#370306;
+  --clr-grwhite:#F5F9F1;
+  --clr-grgray:#DDF4B8;
+  --clr-grbrown:#26163a;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h1,p{
+  color:var(--clr-primary);
+}
+h2,h3,h4{
+font-size:.8rem;
+  color: var(--clr-primary);
+}
+
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+    font-family: 'poppins', sans-serif !important;
+    color: #fff !important;
+    background-color: var(--clr-background) !important;
+}
+.body-container {
+
+    height: 100%;
+    z-index: 0;
+}
+.background {
+    position: absolute;
+    left: 0%;
+    width: 0%;
+    height: 100%;
+   background-image: url('/bg2.png');
+   background-size: 100%;
+    z-index: -1;
+}
+/* NAVIGATION */
+.nav {
+  color: #00f3f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    padding: 0 6rem;
+    z-index: 100;
+    flex-direction: row;
+  }
+
+  /* nav and stickly class at the same time */
+  .nav.sticky {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.95);
+    margin-top: 0;
+  }
+
+  .nav__logo {
+    height: 4.5rem;
+    transition: all 0.3s;
+    padding:0.5rem;
+  }
+  .nav__logo img {
+    height: 3.5rem;
+}
+  .nav__links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .nav__link:link,
+  .nav__link:visited {
+    font-size: 15px;
+    font-weight: 400;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s;
+  }
+
+  .nav__link--btn:link,
+  .nav__link--btn:visited {
+    padding: 0.8rem 2.5rem;
+    border-radius: 2rem;
+    background-color: var(--color-primary);
+    color: #222;
+  }
+
+  .nav__link--btn:hover,
+  .nav__link--btn:active {
+    color: inherit;
+    background-color: var(--color-primary-darker);
+    color: var(--black);
+  }
+
+.logo {
+    font-size: 22px;
+    margin: 0.2em 2em;
+    line-height: 80px;
+    position: absolute;
+}
+
+
+.logo {
+    font-size: 22px;
+    margin: 0.2em 2em;
+    line-height: 80px;
+    position: absolute;
+}
+/* .nav {
+    width: 100%;
+    height: 80px;
+    position: absolute;
+}
+.menu {
+    position: absolute;
+    height: 80px;
+    right: 120px;
+}
+
+.menu ul {
+    list-style: none;
+}
+
+.menu ul li {
+    display: inline-block;
+    margin: 2em 0;
+    padding: 0 30px;
+    font-size: 15px;
+} */
+
+.hero {
+  /* background: black !important; */
+  height: 100%;
+  /* width: 100rem; */
+}
+.hero img {
+    position: absolute;
+
+    height: 90%;
+    left: 30%;
+    top: -4px;
+    z-index: 2;
+}
+
+.blocks {
+    display: flex;
+    font-size: 240px;
+    font-weight: bolder;
+    color: rgba(255, 255, 255, 0.671);
+    opacity: .1;
+}
+
+
+
+
+.titlee {
+  color: var(--clr-primary);
+  position: absolute;
+  right: -1%;
+  bottom: 140px;
+  z-index: 2;
+}
+
+.title-container {
+ position: relative;
+    display: flex;
+    top: -40px;
+    left: -870px;
+}
+
+.title-item {
+    letter-spacing: 5px;
+    font-weight: 80;
+    font-size: 35px;
+}
+
+
+
+.media {
+    position: absolute;
+    bottom: 180px;
+    left: -20px;
+}
+
+.media ul {
+    position: absolute;
+    list-style: none;
+}
+
+.media ul li {
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.about {
+  display: flex;
+  padding: 2rem;
+  margin-top: 3rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.about-head {
+  padding: 2rem;
+  margin: 3rem;
+}
+.about-text {
+  display: flex;
+  margin: 2rem;
+  padding: 2rem;
+}
+.about-text p {
+  margin: 2rem;
+  padding: 2rem;
+}
+
+
+
+
+
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+.ux{
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left : 0;
+    z-index: 5;
+
+}
+
+.top{
+    padding: 5rem 10rem;
+    box-sizing: border-box;
+
+}
+.img-icon{
+
+    width: 100px;
+    height: 100px;
+
+}
+
+
+h1{
+
+    font-size: 5rem !important;
+    text-transform: uppercase;
+
+}
+
+p{
+    font-size: 1.5rem;
+    padding-left: 1rem;
+    opacity: 0.95;
+
+}
+
+h2{
+
+    font-size: 3rem !important;
+
+
+}
+
+h3{
+   text-transform: uppercase;
+}
+
+.work__container{
+  padding-top: 1rem;
+
+}
+.work__filters{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: .75rem;
+  margin-bottom: 2rem;
+}
+
+.work__item{
+  cursor: pointer;
+  color:var(--title-color);
+  padding: .25rem .75rem;
+  font-weight: var(--font-medium);
+  border-radius: .5rem;
+}
+.work__card{
+  background-color: var(--container-color);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.work__img{
+  border-radius: 1rem;
+  margin-bottom: .75rem;
+}
+.work__title{
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-medium);
+  margin-bottom: .25rem;
+}
+.work__button{
+  width: max-content;
+  color:var(--first-color);
+  font-size: var(--small-font-size);
+  display: flex;
+  align-items: center;
+  column-gap: .25rem;
+}
+.work__button:hover .work__icon{
+  transform:translateX(.25rem);
+}
+.work__icon{
+  font-size: 1rem;
+  transition: .4s;
+}
+
+/* Active item work*/
+.active-work{
+  background-color: var(--first-color);
+  color:var(--body-color);
+}
+
+/* solution */
+
+#solution{
+  text-align: center;
+}
+.solution-btn{
+  width: 120px !important;
+}
+.solution-btn a{
+  text-decoration: none !important;
+    color: white;
+}
+
+/* team */
+
+.container.team-container {
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+  align-items: center;
+}
+.team-head h2 {
+  /* color: black !important; */
+  /* font-size: 3rem; */
+}
+.team-card{
+  justify-content: center !important;
+    width: 100% !important;
+}
+
+.our-team {
+  padding: 30px 0 40px;
+  margin-bottom: 30px;
+  background-color: #f7f5ec;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+.team-head {
+  margin: 3rem;
+  padding: 2rem;
+}
+
+.our-team .picture {
+  display: inline-block;
+  height: 130px;
+  width: 130px;
+  margin-bottom: 50px;
+  z-index: 1;
+  position: relative;
+}
+
+.our-team .picture::before {
+  z-index: -2;
+  content: "";
+  width: 100%;
+  height: 0;
+  border-radius: 50%;
+  background-color: var(--clr-grbrown);
+  position: absolute;
+  bottom: 135%;
+  right: 0;
+  left: 0;
+  opacity: 0.9;
+  transform: scale(3);
+  transition: all 0.3s linear 0s;
+}
+
+.our-team:hover .picture::before {
+  height: 100%;
+}
+
+.our-team .picture::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--clr-primary);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.our-team .picture img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  transform: scale(1);
+  transition: all 0.9s ease 0s;
+}
+
+.our-team:hover .picture img {
+  box-shadow: 0 0 0 14px var(--clr-grbrown);
+  transform: scale(0.7);
+}
+
+.our-team .title {
+  display: block;
+  font-size: 15px;
+  color: var(--clr-grbrown);
+  text-transform: capitalize;
+}
+
+.our-team .social {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+   background-color: var(--clr-grbrown);
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  transition: all 0.5s ease 0s;
+}
+
+.our-team:hover .social {
+  bottom: 0;
+}
+
+.our-team .social li {
+  display: inline-block;
+}
+
+.our-team .social li a {
+  display: block;
+  padding: 10px;
+  font-size: 17px;
+  color: white !important;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+}
+
+.our-team .social li a:hover {
+  color: var(--clr-secondary) !important;
+  background-color: var(--clr-grbrown);
+}
+
+
+.text{
+
+    /* color : black; */
+    padding-left: 5rem;
+}
+
+
+  .right_conatct_social_icon{
+       background: linear-gradient(to top right, var(--clr-primary) -5%, var(--clr-grbrown) 100%);
+  }
+  .contact_us{
+      /* background-color: #f1f1f1; */
+      padding: 120px 0px;
+      margin-top:3rem ;
+      flex-direction: column;
+      display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .contact_us>.container{
+
+      max-width: 1176px !important;
+
+  }
+  .contact-head {
+    margin: 1rem;
+    padding: 2rem;
+}
+  .contact_inner{
+      background-color: #fff;
+      position: relative;
+
+      border-radius: 25px;
+  }
+  .contact_field{
+      padding: 60px 340px 90px 100px;
+  }
+  .right_conatct_social_icon{
+      height: 100%;
+  }
+
+  .contact_field h3{
+     /* color: #000 !important; */
+      font-size: 40px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-bottom: 10px
+  }
+  .contact_field p{
+      /* color: #000 !important; */
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-bottom: 35px;
+  }
+  .contact_field .form-control{
+      border-radius: 0px;
+      border: none;
+      border-bottom: 1px solid #ccc;
+  }
+  .contact_field .form-control:focus{
+      box-shadow: none;
+      outline: none;
+      border-bottom: 2px solid  var(--clr-secondary);
+  }
+  .contact_field .form-control::placeholder{
+      font-size: 13px;
+      letter-spacing: 1px;
+  }
+
+  .contact_info_sec {
+      position: absolute;
+      background-color: #2d2d2d;
+      right: 1px;
+      top: 18%;
+      height: 340px;
+      width: 340px;
+      padding: 40px;
+      border-radius: 25px 0 0 25px;
+  }
+  .contact_info_sec h4{
+      letter-spacing: 1px;
+      padding-bottom: 15px;
+  }
+
+  .info_single{
+      margin: 30px 0px;
+  }
+  .info_single i{
+      margin-right: 15px;
+  }
+  .info_single span{
+      font-size: 14px;
+      letter-spacing: 1px;
+  }
+
+  button.contact_form_submit {
+      background: linear-gradient(to top right, var(--clr-primary) -5%, var(--clr-grbrown) 100%);
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      width: 100%;
+      margin-top: 25px;
+      border-radius: 35px;
+      cursor: pointer;
+      font-size: 14px;
+      letter-spacing: 2px;
+  }
+
+  button.contact_form_submit:hover{
+    background: var(--clr-primary);
+  }
+  .socil_item_inner li{
+      list-style: none;
+  }
+  .socil_item_inner li a{
+      color: #fff;
+      margin: 0px 15px;
+      font-size: 14px;
+  }
+  .socil_item_inner{
+      padding-bottom: 10px;
+  }
+
+
+/*=============== FOOTER ===============*/
+.footer{
+  background-color: var(--clr-primary);
+}
+.footer__container{
+  padding: 2rem 0 1rem;
+}
+
+.footer__title,
+.footer__link{
+ color: var(--clr-grbrown);
+}
+.footer__link{
+text-decoration: none !important;
+
+ }
+.footer__link:hover{
+  color: var(--clr-grbrown);
+
+}
+
+.footer__title{
+  text-align: center;
+  margin-bottom: 2rem;
+
+}
+.footer__list{
+  display: flex;
+  justify-content: center;
+  column-gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.footer__social{
+  display: flex;
+  justify-content: center;
+  column-gap: 1.25rem;
+}
+
+.footer__social-link{
+  background-color: var(--clr-grbrown);
+  color: var(--clr-primary);
+  padding: .25rem;
+  border-radius: .25rem;
+  font-size: 1rem;
+  display: inline-flex;
+}
+.footer__social-link:hover
+{
+  color: var(--clr-secondary);
+
+}
+
+  @media screen and (max-width: 1201px) {
+    h1 {
+      font-size: 5rem !important;
+      line-height: 1.6;
+    }
+  }
+
+
+    </style>
+
+
+</head>
+
+<body>
+    <div class="body-container" id="home">
+        <div class="background"></div>
+         <nav class="nav">
+           <a class="nav__logo" id="logo">
+             <img src=".png" alt="">
+           </a>
+      <ul class="nav__links">
+        <li class="nav__item">
+          <a class="nav__link" href="#home">Home</a>
+        </li>
+        <li class="nav__item">
+          <a class="nav__link" href="#about">About</a>
+        </li>
+        <li class="nav__item">
+          <a class="nav__link" href="#solution">Solution</a>
+        </li>
+        <li class="nav__item">
+          <a class="nav__link" href="#team">Our Team</a>
+        </li>
+        <li class="nav__item">
+          <a class="nav__link" href="#contact">Contact Us</a>
+        </li>
+
+      </ul>
+
+    </nav>
+        <div class="hero">
+            <img src="/speechBot.png" alt="">
+        </div>
+
+        <div class="titlee">
+            <div class="title-container">
+                <div class="title-item">T</div>
+                <div class="title-item">E</div>
+                <div class="title-item">X</div>
+                <div class="title-item">T</div>
+                <div class="title-item">U</div>
+                <div class="title-item">A</div>
+                <div class="title-item">U</div>
+                <div class="title-item">A</div>
+                <div class="title-item">L</div>
+                <div class="title-item">-</div>
+                <div class="title-item">V</div>
+                <div class="title-item">I</div>
+                <div class="title-item">D</div>
+                <div class="title-item">E</div>
+                <div class="title-item">O</div>
+                <div class="title-item">-</div>
+                <div class="title-item">T</div>
+                <div class="title-item">O</div>
+                <div class="title-item">-</div>
+                <div class="title-item">S</div>
+                <div class="title-item">P</div>
+                <div class="title-item">E</div>
+                <div class="title-item">E</div>
+                <div class="title-item">C</div>
+                <div class="title-item">H</div>
+
+
+            </div>
+        </div>
+
+        <!-- <div class="content">
+
+            <button>Know More</button>
+        </div> -->
+
+        <div class="media">
+            <ul>
+                <li>
+                    <ion-icon name="logo-facebook"></ion-icon>
+                </li>
+                <li>
+                    <ion-icon name="logo-instagram"></ion-icon>
+                </li>
+                <li>
+                    <ion-icon name="logo-twitter"></ion-icon>
+                </li>
+                <li>
+                    <ion-icon name="logo-youtube"></ion-icon>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 8888 -->
+
+    <!-- <div class="blocks">
+      <div class="block-1">0</div>
+      <div class="block-1">1</div>
+  </div> -->
+
+    <!-- about section -->
+      <div class="about" id="about">
+        <div class="about-head">
+          <h2>About</h2>
+        </div>
+        <div class="about-text">
+           <img src="/text.png" alt="about us">
+           <p>Text to speech is also known as TTS, read aloud, or even speech synthesis. It simply means using artificial intelligence to read words aloud be; it from a PDF, email, docs, or any website. There isn't a voice artist recording phrases or words, or even the entire article.</p>
+        </div>
+      </div>
+
+       <div id="solution"
+        style="height: 20rem; width: 100vw;"
+       >
+       <h2>Solution</h2>
+        <div class="header">
+            <br><br><h3 class="text-muted">Textual Video to Speech </h3>
+        </div>
+
+
+            <h3>Select Your Video</h3><br>
+            <form action="upload" method="post" enctype="multipart/form-data">
+                <input style="color: #6c757d;" type="file" name="file" multiple accept='video/*' class="btn btn-default" /><br />
+                <input type="submit" class="btn btn-primary" value="Upload" />
+            </form>
+
+
+        <div class="row marketing">
+            <div class="col-lg-6">
+                <div class="header">
+            <br><br><h3 class="text-muted">Format of Video</h3>
+        </div>
+
+                <p style="font-size:20px">This software only accepts .mp4 format of video.</p>
+                <p style="font-size:20px">If not available, convert it.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="header">
+            <br><br><h3 class="text-muted">Length of Video</h3>
+        </div>
+
+                <p style="font-size:20px">Make video not more than 15 sec. </p>
+                <p style="font-size:20px">and it should not be shaky and blurred.</p>
+            </div>
+        </div>
+
+
+      </div>
+
+
+
+      <!-- The creative crew -->
+
+      <div class="container team-container" id="team">
+          <div class="team-head"><h2>Our Team</h2></div>
+
+            <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+              <div class="our-team">
+                <div class="picture">
+                  <img class="img-fluid" src="sir.jpg">
+                </div>
+                <div class="team-content">
+                  <h3 class="name">PROFESSOR P. K. Singh</h3>
+                  <h4 class="title">Project Guid</h4>
+                </div>
+                <ul class="social">
+                  <li><a href="#" ><i class='bx bxl-linkedin'></i></a></li>
+                  <li><a href="#" ><i class='bx bxl-twitter' ></i></a></li>
+                  <li><a href="#" ><i class='bx bxl-twitter' ></i></a></li>
+                  <li><a href="#" ></a></li>
+                </ul>
+              </div>
+            </div>
+           -->
+
+        <div class="row team-card">
+
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="our-team">
+              <div class="picture">
+                <img class="img-fluid" src="4.jpg">
+              </div>
+              <div class="team-content">
+                <h3 class="name">Lakshya Mudgal</h3>
+                <h4 class="title">4th year, Btech IT</h4>
+              </div>
+              <ul class="social">
+                <li><a href="#" ><i class='bx bxl-linkedin'></i></a></li>
+                <li><a href="#" ><i class='bx bxl-twitter' ></i></a></li>
+                <li> <a href="" class=""><i class='bx bxl-github'></i></a></li>
+
+              </ul>
+            </div>
+          </div>
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="our-team">
+              <div class="picture">
+               <img class="img-fluid" src="4.jpg">
+              </div>
+              <div class="team-content">
+                <h3 class="name">Madhur Tripathi</h3>
+                <h4 class="title">4th year, Btech IT</h4>
+              </div>
+              <ul class="social">
+                <li><a href="#" ><i class='bx bxl-linkedin'></i></a></li>
+                <li><a href="#" ><i class='bx bxl-twitter' ></i></a></li>
+                <li> <a href="" class="">
+                  <i class='bx bxl-github'></i>
+              </a></li>
+
+              </ul>
+            </div>
+          </div>
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="our-team">
+              <div class="picture">
+              <img class="img-fluid" src="4.jpg">
+              </div>
+              <div class="team-content">
+                <h3 class="name">Kshitiz</h3>
+                <h4 class="title">4th year, Btech IT</h4>
+              </div>
+              <ul class="social">
+                <li><a href="#" ><i class='bx bxl-linkedin'></i></a></li>
+                <li><a href="#" ><i class='bx bxl-twitter' ></i></a></li>
+               <li> <a href="" class=""><i class='bx bxl-github'></i></a></li>
+
+              </ul>
+            </div>
+          </div>
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="our-team">
+              <div class="picture">
+              <img class="img-fluid" src="4.jpg">
+              </div>
+              <div class="team-content">
+                <h3 class="name">Faizan Khan</h3>
+                <h4 class="title">4th year, Btech IT</h4>
+              </div>
+              <ul class="social">
+                <li><a href="#" ><i class='bx bxl-linkedin'></i></a></li>
+                <li><a href="#" ><i class='bx bxl-twitter' ></i></a></li>
+               <li> <a href="" class=""><i class='bx bxl-github'></i></a></li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- contact us section -->
+      <section class="contact_us" id="contact">
+         <div class="contact-head">
+           <h2>Contact Us</h2>
+         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="contact_inner">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="contact_form_inner">
+                                    <div class="contact_field">
+                                        <h3>Contact Us</h3>
+                                        <p>Feel Free to contact us any time. We will get back to you as soon as we can!.</p>
+                                        <input type="text" class="form-control form-group" placeholder="Name" />
+                                        <input type="text" class="form-control form-group" placeholder="Email" />
+                                        <textarea class="form-control form-group" placeholder="Message"></textarea>
+                                        <button class="contact_form_submit">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="right_conatct_social_icon d-flex align-items-end">
+                                   <div class="socil_item_inner d-flex">
+                                      <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+                                      <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                      <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact_info_sec">
+                            <h4>Contact Info</h4>
+                            <div class="d-flex info_single align-items-center">
+                                <i class="fas fa-headset"></i>
+                                <span>+91 999999999</span>
+                            </div>
+                            <div class="d-flex info_single align-items-center">
+                                <i class="fas fa-envelope-open-text"></i>
+                                <span>abcdef@gmail.com</span>
+                            </div>
+                            <div class="d-flex info_single align-items-center">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <span>1000+ Travel partners and 65+ Service city across India, USA, Canada & UAE</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer">
+      <div class="footer__container container">
+          <h1 class="footer__title">textual video to speech</h1>
+
+          <ul class="footer__list">
+              <li><a href="#about" class="footer__link">About</a></li>
+              <li><a href="#work" class="footer__link">Project</a></li>
+              <li><a href="#education" class="footer__link">Education</a></li>
+          </ul>
+
+          <ul class="footer__social">
+              <a href="" class="footer__social-link">
+                  <i class='bx bxl-github'></i>
+              </a>
+              <a href="" class="footer__social-link">
+                  <i class='bx bxl-linkedin-square'></i>
+              </a>
+              <a href="" class="footer__social-link">
+                  <i class='bx bxl-twitter'></i>
+              </a>
+          </ul>
+
+
+
+      </div>
+
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script>
+
+        TweenMax.to(".background", 2, {
+            width: "100%",
+            ease: Expo.easeInOut
+        })
+
+        TweenMax.from(".nav", 1.5, {
+            delay: 1.2,
+            opacity: 0,
+            y: 20,
+            ease: Expo.easeInOut
+        })
+
+        TweenMax.from(".blocks", 1.5, {
+            delay: 1.6,
+            opacity: 0,
+            x: -60,
+            ease: Expo.easeInOut
+        })
+
+        TweenMax.from(".tag-line", 1.5, {
+            delay: 2,
+            opacity: 0,
+            x: -80,
+            ease: Expo.easeInOut
+        })
+
+        TweenMax.from(".hero", 2, {
+            delay: 0.3,
+            opacity: 0,
+            x: 170,
+            ease: Expo.easeInOut
+        })
+
+        TweenMax.staggerFrom(".title-container > div", 3, {
+            delay: 0.2,
+            y: "500",
+            ease: Elastic.easeOut.config(2, 0.4)
+        }, 0.2)
+
+        TweenMax.from(".year", 1.5, {
+            delay: 6.2,
+            opacity: 0,
+            x: -40,
+            ease: Expo.easeInOut
+        })
+
+        TweenMax.from(".content p", 2, {
+            delay: 7,
+            opacity: 0,
+            y: 20,
+            ease: Expo.easeInOut
+        })
+
+        TweenMax.from(".content button", 2, {
+            delay: 7.2,
+            opacity: 0,
+            y: 20,
+            ease: Expo.easeInOut
+        })
+
+        TweenMax.staggerFrom(".media ul li", 1.5, {
+            delay: 9,
+            opacity: 0,
+            x: -30,
+            ease: Expo.easeInOut
+        }, 0.08)
+
+        let team = document.getElementById("team-inf");
+let Hscreen = document.getElementsByClassName("hover-screen")[0];
+let Hs=  document.getElementsByClassName("hover-screen");
+console.log(Hs);
+for (let i = 0; i < Hs.length; i++) {
+  console.log(Hs[i])
+}
+console.dir(Hscreen);
+document.addEventListener("click", element =>{
+      console.log(element)
+      console.dir(element)
+    if(element.target.className.includes("hover-screen")){
+        team.style.transform = "translate(0, 0%) "
+        team.style.backgroundColor="red";
+        document.getElementsByClassName("team-inf-container")[0].childNodes[1].innerHTML ="hello element"
+        document.getElementsByClassName("team-inf-container")[0].childNodes[3].innerHTML ="hello element"
+        console.log(document.getElementsByClassName("team-inf-container")[0].childNodes[1])
+    }
+ if(element.target.id === "close"){
+
+    team.style.transform = "translate(0, 100%) "
+
+ }
+})
+    </script>
+</body>
+
+</html>
+

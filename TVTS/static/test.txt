@@ -1,0 +1,22 @@
+Abstract
+
+Our aim is the development of an interface to textual information
+for the visually impaired that uses video, image processing, optical-
+character-recognition (OCR) and text-to-speech (TTS). The video
+provides a sequence of low resolution images in which text must be de-
+tected, rectified and converted into high resolution rectangular blocks
+that are capable of being analyzed via off-the-shelf OCR. To achieve
+this, various problems related to feature detection, mosaicing, bina-
+
+rization, and systems integration were solved in the development of
+the system.
+
+For getting the image sequences, we will cut out frames at regular
+interval from the video, then pre-process that image to get a clearer
+image. After that, using image stiching tool of OpenCV Python, we
+will be making a single image of the whole text. Thereafter, that
+image will be given to the OCR (Tesseract), which further will give
+it’s output to the Google Text To Speech engine (gTTS) to make a
+
+hudio speech output.
+
